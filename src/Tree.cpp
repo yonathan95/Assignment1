@@ -46,7 +46,7 @@ const Tree& Tree:: operator=(Tree &&other){
     return *this;
 }
 
-//Destructor: TODO delete clones
+//Destructor:
 Tree:: ~Tree(){
     for(int i = 0; i < children.size();++i){
         if (children[i]){
@@ -56,14 +56,13 @@ Tree:: ~Tree(){
     }
 }
 
-
 //Class functions:
 
-void Tree:: addChild(const Tree& child){
+void Tree:: addChild(const Tree& child){//TODO complete
 
 }
 
-void Tree:: addChild(Tree* child){//TODO delete child
+void Tree:: addChild(Tree* child){//TODO delete child & complete
 
 }
 
@@ -75,8 +74,6 @@ void Tree:: clear(){
         }
     }
 }
-
-//Getters and Setters:
 
 //Static functions:
 
@@ -90,17 +87,50 @@ Tree* createTree(const Session& session, int rootLabel){
     else{
 
     }
-}
-
-//Pure Virtual functions:
+}//TODO complete
 
 //---------------------------------------------------------------------------------------------------
 //Class CycleTree:
 
+//Constructor:
+CycleTree:: CycleTree(int rootLabel, int currCycle):Tree(rootLabel),currCycle(currCycle){}
 
+//Virtual functions:
+Tree* CycleTree::clone(){
+    return new CycleTree(*this);
+};
+int CycleTree::traceTree() {//TODO complete
+
+}
 
 //---------------------------------------------------------------------------------------------------
 //Class MaxRankTree:
 
+//Constructors:
+MaxRankTree:: MaxRankTree(int rootLabel):Tree(rootLabel){}
+
+//Virtual functions:
+Tree* MaxRankTree::clone(){
+    return new MaxRankTree(*this);
+};
+
+int MaxRankTree::traceTree() {//TODO complete
+
+}
+
 //---------------------------------------------------------------------------------------------------
 //Class RootTree:
+
+//Constructor:
+RootTree:: RootTree(int rootLabel):Tree(rootLabel){}
+
+
+
+//Virtual functions:
+Tree* RootTree::clone(){
+    return new RootTree(*this);
+};
+
+int RootTree::traceTree() {
+    return node;
+}

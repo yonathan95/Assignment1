@@ -11,7 +11,7 @@ class Session;
 
 class Tree{
 public:
-    //Constructors:TODO rule of 5
+    //Constructors:
     Tree();
     Tree(int rootLabel);
     Tree(const Tree &other);
@@ -26,13 +26,6 @@ public:
     void addChild(const Tree& child);
     void addChild(Tree* child);
     void clear();
-    
-    //Getters and Setters:
-    int getNode() const;
-    std::vector<Tree*> getChildren() const;
-    void setNode(int num);
-    void setChildren(std::vector<Tree*>); 
-    
 
     //Static functions:
     static Tree* createTree(const Session& session, int rootLabel);
@@ -41,7 +34,7 @@ public:
     virtual int traceTree()=0;
     virtual Tree* clone()=0;
 
-private:
+protected:
     //Fields:
     int node;
     std::vector<Tree*> children;
@@ -49,23 +42,36 @@ private:
 
 class CycleTree: public Tree{
 public:
+    //Constructor:
     CycleTree(int rootLabel, int currCycle);
+
+    //Virtual functions:
     virtual int traceTree();
+    virtual Tree* clone();
 
 private:
+    //Fields:
     int currCycle;
 };
 
 class MaxRankTree: public Tree{
 public:
+    //Constructor:
     MaxRankTree(int rootLabel);
+
+    //Virtual functions:
     virtual int traceTree();
+    virtual Tree* clone();
 };
 
 class RootTree: public Tree{
 public:
+    //Constructor:
     RootTree(int rootLabel);
+
+    //Virtual functions:
     virtual int traceTree();
+    virtual Tree* clone();
 };
 
 
