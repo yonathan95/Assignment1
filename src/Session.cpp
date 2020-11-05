@@ -32,8 +32,8 @@ Session::Session(const std::string& path):g(),treeType(0),agents(vector<Agent*>(
 }
 
 Session::Session(const Session& other):g(),treeType(other.treeType),agents(){
-    for (int i = 0; i < other.agent.size();++i){
-        Agent* newAgent = other.agent.clone();
+    for (int i = 0; i < other.agents.size();++i){
+        Agent* newAgent = other.agents[i]->clone();
         agents.push_back(newAgent);
     }
 }

@@ -24,7 +24,8 @@ public:
 
     //Class functions:
     void addChild(const Tree& child);
-    void addChild(Tree* child); 
+    void addChild(Tree* child);
+    void clear();
     
     //Getters and Setters:
     int getNode() const;
@@ -38,7 +39,7 @@ public:
 
     //Pure Virtual functions
     virtual int traceTree()=0;
-    virtual Tree* clone(const Tree& child)=0;
+    virtual Tree* clone()=0;
 
 private:
     //Fields:
