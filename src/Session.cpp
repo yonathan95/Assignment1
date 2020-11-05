@@ -114,3 +114,11 @@ void Session:: clear(){
         }
     }
 }
+
+TreeType Session::getTreeType() const {//TODO Elad check
+    return treeType;
+}
+
+void Session:: setGraph(const Graph& graph){//TODO Elad check
+    g = graph;
+}
