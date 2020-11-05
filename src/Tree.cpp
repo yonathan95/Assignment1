@@ -15,13 +15,13 @@ Tree::Tree(const Tree &other):node(other.node),children(vector<Tree*>()){//
         children.push_back(newTree);
     }
 }
-
+//move constructor
 Tree::Tree(Tree &&other):node(other.node),children(other.children){
     for(int i = 0; i < other.children.size();++i){
         other.children[i] = nullptr;
     }
 }
-
+//copy assignment
 const Tree& Tree:: operator=(const Tree &other){
     if(this != &other){
         node = other.node;
@@ -33,12 +33,12 @@ const Tree& Tree:: operator=(const Tree &other){
     }
     return *this;
 }
-
-const Tree& Tree:: operator=(Tree &&other){
+//move assignment
+const Tree& Tree:: operator=(Tree &&other){//TODO check
     if (this != &other){
         node = other.node;
         clear();
-        children = vector<Tree*>(other.children.size());
+        children = other.children;
         for(int i = 0; i < other.children.size();++i){
             other.children[i] = nullptr;
         }

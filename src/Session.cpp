@@ -1,12 +1,16 @@
 #include "Session.h"
 #include <vector>
+#include <unordered_set>
 
 //Constructors:
-Session::Session():g(),treeType(0),agents(vector<Agent*>()){
+
+//empty constructor
+Session::Session():g(),treeType(treeType),agents(vector<Agent*>()){
 
 }
 
-Session::Session(const std::string& path):g(),treeType(0),agents(vector<Agent*>()){
+//regular constructor
+Session::Session(const std::string& path):g(),treeType(treeType),agents(vector<Agent*>()){
     //input
     ifstream i (path);
     json j;
@@ -24,33 +28,55 @@ Session::Session(const std::string& path):g(),treeType(0),agents(vector<Agent*>(
     }
     //construct agent:
     vector<Agent*> newAgents;
-    for (auto& elem: j["Agents"]){
+    for (auto& elem: j["Agents"]){//TODO complete
 
     }
     //construct graph:
     Graph g(j["graph"]);
 }
 
-Session::Session(const Session& other):g(),treeType(other.treeType),agents(vector<Agent*>()){
+//copy constructor
+Session::Session(const Session& other):g(other.g),treeType(other.treeType),agents(vector<Agent*>()){
     for (int i = 0; i < other.agents.size();++i){
         Agent* newAgent = other.agents[i]->clone();
         agents.push_back(newAgent);
     }
 }
 
+//move constructor
+Session::Session(Session &&other):g(other.g),treeType(other.treeType),agents(vector<Agent*>(other.agents)){
+    for(int i = 0; i < other.agents.size();++i){
+        other.agents[i] = nullptr;
+    }
+}
 
-Session::Session():g(),treeType(0),agents(vector<Agent*>()){
-
+//copy assignment
+const Session& Session:: operator=(const Session &other){
+    if(this != &other){
+        treeType = other.treeType;
+        g = other.g;
+        clear();
+        agents = vector<Agent*>(other.agents.size());
+        for(int i = 0; i < other.agents.size();++i){
+            *agents[i] = *other.agents[i];
+        }
+    }
+    return *this;
 }
 
 
-Session::Session():g(),treeType(0),agents(vector<Agent*>()){
-
-}
-
-
-Session::Session():g(),treeType(0),agents(vector<Agent*>()){
-
+//move assignment
+const Session& Session:: operator=(Session &&other){//TODO check
+    if (this != &other){
+        treeType = other.treeType;
+        g = other.g;
+        clear();
+        agents = other.agents;
+        for(int i = 0; i < other.agents.size();++i){
+            other.agents[i] = nullptr;
+        }
+    }
+    return *this;
 }
 
 
@@ -78,4 +104,13 @@ void Session::simulate(){
 
 void Session:: addAgent(const Agent& agent){
     Agent* clone = agent.clone();//
+}
+
+void Session:: clear(){
+    for(int i = 0; i < agents.size();++i){
+        if (agents[i]){
+            delete agents[i];
+            agents[i] = nullptr;
+        }
+    }
 }

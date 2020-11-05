@@ -34,6 +34,7 @@ public:
     virtual ~Session();//TODO delete all agents in the vector
     
     void simulate();
+    void clear();
     void addAgent(const Agent& agent);
     void setGraph(const Graph& graph);
     
