@@ -31,7 +31,7 @@ Session::Session(const std::string& path):g(),treeType(0),agents(vector<Agent*>(
     Graph g(j["graph"]);
 }
 
-Session::Session(const Session& other):g(),treeType(other.treeType),agents(){
+Session::Session(const Session& other):g(),treeType(other.treeType),agents(vector<Agent*>()){
     for (int i = 0; i < other.agents.size();++i){
         Agent* newAgent = other.agents[i]->clone();
         agents.push_back(newAgent);

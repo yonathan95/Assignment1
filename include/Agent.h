@@ -9,25 +9,19 @@ class Agent{
 public:
     //Constructors:
     Agent();
-    Agent(Session& session);
 
     //Virtual functions:
     virtual Agent* clone() const = 0;
-    virtual void act() = 0;
-
-protected:
-    //Fields:
-    Session& session;
+    virtual void act(Session& session)=0;
 };
 
 class ContactTracer: public Agent{
 public:
     //Constructors:
-    ContactTracer(Session& session);
-    ContactTracer(const ContactTracer& other);
+    ContactTracer();
 
     //Virtual functions:
-    virtual void act();
+    virtual void act(Session& session);
     virtual Agent* clone() const;
 };
 
@@ -35,11 +29,11 @@ public:
 class Virus: public Agent{
 public:
     //Constructors:
-    Virus(int nodeInd, Session& session);
+    Virus(int nodeInd);
     Virus(const Virus& other);
 
     //Virtual functions:
-    virtual void act();
+    virtual void act(Session& session);
     virtual Agent* clone() const;
 
 private:
