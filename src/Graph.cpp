@@ -30,7 +30,23 @@ bool Graph::isInfected(int nodeInd){
 
 //Getters and setters:
 
- const vector<int> & Graph::getNodes() const{
+  const vector<int> & Graph::getNodes() const{
      return nodes;
  }
+ void Graph::becomeSick(vector<int> &node,int nodeInt) {
+    node[nodeInt] = 2;
+}
+vector<int> Graph::getInfectedNodes(){
+    vector <int> output;
+    for(int i = 0; i < nodes.size() ; ++i){
+        if(nodes[i] != 0){
+            output.push_back(i);
+        }
+    }
+    return output;
+}
+vector<vector<int>>& Graph::getEdges(){
+    return edges;
+}
+
 

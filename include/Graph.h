@@ -13,11 +13,12 @@ public:
     //Class functions:
     void infectNode(int nodeInd);
     bool isInfected(int nodeInd);
-    vector<int> getInfectedNodes();//TODO complete
+    vector<int> getInfectedNodes();
 
     //Getters and setters:
-    const vector<int> & getNodes() const;
-    vector<vector<int>> getEdges();//TODO complete
+    const vector <int> & getNodes() const;
+    void becomeSick(vector<int> & node,int nodeInt);
+    vector<vector<int>>& getEdges();
     
 private:
     //Fields:
