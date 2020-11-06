@@ -29,6 +29,11 @@ int Graph::numberOfsick() {
     return sum;
 }
 
+void Graph::quarantineNode(int nodeToQuarantine) {
+    for(int i = 0; i < edges.size(); ++i){
+        edges[nodeToQuarantine][i] = edges[i][nodeToQuarantine] = 0;
+    }
+}
 
 //Getters and setters:
 
@@ -48,5 +53,7 @@ vector<int> Graph::getInfectedNodes(){
 const vector<vector<int>>& Graph::getEdges() const{
     return edges;
 }
+
+
 
 

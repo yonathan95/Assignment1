@@ -164,3 +164,7 @@ Graph& Session::getGraphForChange() {
 void Session:: setGraph(const Graph& graph){
     g = graph;
 }
+
+int Session::getCurrCycle() const {
+    return currCycle;
+}

@@ -1,5 +1,6 @@
 #include "Agent.h"
 #include <vector>
+#include <Tree.h>
 #include "Session.h"
 
 //Class Agent:
@@ -19,8 +20,13 @@ Agent* ContactTracer:: clone() const{
     return new ContactTracer(*this);
 }
 
-void ContactTracer:: act(Session& session){//TODO complete
-
+void ContactTracer:: act(Session& session){
+    Graph g = session.getGraphForChange();
+    int rootLabel = session.dequeueInfected();
+    Tree* tree = Tree::createTree(session,rootLabel);
+    tree->bfs(session,rootLabel);
+    int nodeToQuarantine = tree->traceTree();
+    g.quarantineNode(nodeToQuarantine);
 }
 
 

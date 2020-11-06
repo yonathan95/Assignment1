@@ -44,6 +44,7 @@ public:
     TreeType getTreeType() const;
     const Graph& getGraph() const;
     Graph& getGraphForChange();
+    int getCurrCycle() const;
 
 
 private:
