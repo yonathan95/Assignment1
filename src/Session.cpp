@@ -113,13 +113,13 @@ void Session::simulate(){
     j >> i;
 
 }
-
+// allocate new memory on the heap for a new agent and add t the the agent list.
 void Session:: addAgent(const Agent& agent){
     Agent* clone = agent.clone();
     agents.push_back(clone);
 }
 
-
+//delete the agents vector from the heap.
 void Session:: clear(){
     for(int i = 0; i < agents.size();++i){
         if (agents[i]){
@@ -136,9 +136,11 @@ int Session::dequeueInfected() {
     int output = infectedQueue[0];
     infectedQueue.erase(infectedQueue.begin());
 }
-
+// change vertics to be infected and add it to the agent list.
 void Session::setInfected(int nodeInd) {
-
+    g.infectNode(nodeInd);
+    Virus newVirus(nodeInd);
+    addAgent(newVirus);
 }
 TreeType Session::getTreeType() const {
     return treeType;
