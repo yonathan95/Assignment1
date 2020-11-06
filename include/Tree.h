@@ -32,7 +32,7 @@ public:
 
     //Pure Virtual functions
     virtual int traceTree()=0;
-    virtual Tree* clone()=0;
+    virtual Tree* clone() const = 0;
 
 protected:
     //Fields:
@@ -47,7 +47,7 @@ public:
 
     //Virtual functions:
     virtual int traceTree();
-    virtual Tree* clone();
+    virtual Tree* clone() const;
 
 private:
     //Fields:
@@ -61,7 +61,7 @@ public:
 
     //Virtual functions:
     virtual int traceTree();
-    virtual Tree* clone();
+    virtual Tree* clone() const;
 };
 
 class RootTree: public Tree{
@@ -71,7 +71,7 @@ public:
 
     //Virtual functions:
     virtual int traceTree();
-    virtual Tree* clone();
+    virtual Tree* clone() const;
 };
 
 

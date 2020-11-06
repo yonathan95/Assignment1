@@ -58,12 +58,13 @@ Tree:: ~Tree(){
 
 //Class functions:
 
-void Tree:: addChild(const Tree& child){//TODO complete
-
+void Tree:: addChild(const Tree& child){
+    Tree* tree = child.clone();
+    children.push_back(tree);
 }
 
-void Tree:: addChild(Tree* child){//TODO delete child & complete
-
+void Tree:: addChild(Tree* child){
+    children.push_back(child);
 }
 
 void Tree:: clear(){
