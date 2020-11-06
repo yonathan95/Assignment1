@@ -84,7 +84,7 @@ Tree* createTree(const Session& session, int rootLabel){
         return new MaxRankTree(rootLabel);
     }
     else if(session.getTreeType() == Cycle){
-        return new CycleTree(rootLabel,0);
+        return new CycleTree(rootLabel, session.getCurrCycle());
     }
     else{
         return new RootTree(rootLabel);

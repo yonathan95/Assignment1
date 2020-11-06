@@ -14,12 +14,13 @@ public:
     void infectNode(int nodeInd);
     bool isInfected(int nodeInd);
     bool isSick(int nodeInd) const;
-    vector<int> getInfectedNodes();
     void becomeSick(int nodeInd);
+    void quarantineNode(int nodeToQuarantine );
 
     //Getters and setters:
     const vector <int> & getNodes() const;
     const vector<vector<int>>& getEdges() const;
+    vector<int> getInfectedNodes();
 
     
 private:
