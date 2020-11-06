@@ -27,6 +27,9 @@ public:
     void addChild(Tree* child);
     void clear();
     void bfs(const Session& session, int rootLabel);
+    const vector<Tree*>& getChildren() const;
+    int getNode();
+    vector<int>& maxRank();
 
     //Static functions:
     static Tree* createTree(const Session& session, int rootLabel);
@@ -38,7 +41,7 @@ public:
 protected:
     //Fields:
     int node;
-    std::vector<Tree*> children;
+    vector<Tree*> children;
 };
 
 class CycleTree: public Tree{
@@ -63,19 +66,14 @@ private:
     int currCycle;
 };
 
-class MaxRankTree: public Tree{//TODO rule of 5
+class MaxRankTree: public Tree{
 public:
     //Constructor:
-
     MaxRankTree(int rootLabel);
 
     //Virtual functions:
     virtual int traceTree();
     virtual Tree* clone() const;
-
-private:
-    //Field:
-    vector<int> ranks;
 };
 
 class RootTree: public Tree{

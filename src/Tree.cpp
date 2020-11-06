@@ -89,7 +89,6 @@ Tree* createTree(const Session& session, int rootLabel){
     else{
         return new RootTree(rootLabel);
     }
-    return pTree;
 }
 
 void Tree::bfs(const Session& session, int rootLabel) {
@@ -122,6 +121,28 @@ void Tree::bfs(const Session& session, int rootLabel) {
     }
 }
 
+const vector<Tree*>& Tree::getChildren() const {
+    return children;
+}
+
+int Tree::getNode() {
+    return node;
+}
+
+vector<int>& Tree:: maxRank(){
+    vector<int> result = vector<int>(2);
+    result[0] = node;
+    result[1] = children.size();
+    vector<int> childResult = vector<int>(2);
+    for (int i = 0;i < children.size();++i){
+        childResult = children[i]->maxRank();
+        if ((childResult[1] > result[1])|(childResult[1] = result[1] & childResult[0] < result[0])){
+            result = childResult;
+        }
+    }
+    return result;
+}
+
 
 //---------------------------------------------------------------------------------------------------//
 //Class CycleTree:
@@ -138,24 +159,41 @@ void CycleTree::setCurrCycle(int cycle) {
 Tree* CycleTree::clone() const{
     return new CycleTree(*this);
 };
-int CycleTree::traceTree() {//TODO complete
-
+int CycleTree::traceTree() {
+    if(children.empty()|currCycle == 0){
+        return node;
+    }
+    else{
+        Tree* tree = children[0];
+        for (int i = 0; i < currCycle -1;++i){
+            if(!tree->getChildren().empty()){
+                tree = tree->getChildren()[0];
+            }
+            else{
+                return tree->getNode();
+            }
+        }
+        return tree->getNode();
+    }
 }
 
 //---------------------------------------------------------------------------------------------------//
 //Class MaxRankTree:
 
 //Constructors:
-MaxRankTree:: MaxRankTree(int rootLabel):Tree(rootLabel),ranks(vector<int>()){}
+MaxRankTree:: MaxRankTree(int rootLabel):Tree(rootLabel){}
 
 //Virtual functions:
 Tree* MaxRankTree::clone() const{
     return new MaxRankTree(*this);
 }
 
-int MaxRankTree::traceTree() {//TODO complete
-
+int MaxRankTree::traceTree() {
+    vector<int> result = maxRank();
+    return result[0];
 }
+
+
 
 //---------------------------------------------------------------------------------------------------//
 //Class RootTree:
