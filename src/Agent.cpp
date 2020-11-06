@@ -38,15 +38,19 @@ Agent* Virus:: clone() const{
     return new Virus(*this);
 }
 
-void Virus:: act(Session& session){//TODO complete
-    //push it-self to the infectedQueue
-    session.enqueueInfected(nodeInd);
-    Graph temGraph = session.getGraph();
+void Virus:: act(Session& session){
+    //push it-self to the infectedQueue if he hse not been there yet.
+    if(!(session.getGraph().isSick(nodeInd))){
+        session.getGraphForChange().becomeSick(nodeInd);
+        session.enqueueInfected(nodeInd);
+    }
     bool found = false;
     //looking for the first virus-free neighbour to infect.
-    for(int j = 0 ; j < temGraph.getEdges().size() & !(found); ++j){
-        if(temGraph.getEdges()[nodeInd][j] == 1){ // find the neighbor of the node number nodeInd.
-            if(!(temGraph.isInfected(j))){ // find the first virus free neighbor to infect.
+    for(int j = 0 ; j < session.getGraph().getEdges().size() & !(found); ++j){
+        // find the neighbor of the node number nodeInd.
+        if(session.getGraph().getEdges()[nodeInd][j] == 1){
+            // find the first virus free neighbor to infect.
+            if(!(session.getGraphForChange().isInfected(j))){
                 session.setInfected(j);
                 found = true;
             }

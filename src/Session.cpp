@@ -145,7 +145,10 @@ void Session::setInfected(int nodeInd) {
 TreeType Session::getTreeType() const {
     return treeType;
 }
-const Graph Session::getGraph() const {
+const Graph& Session::getGraph() const {
+    return g;
+}
+Graph& Session::getGraphForChange() {
     return g;
 }
 

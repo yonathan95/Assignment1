@@ -15,6 +15,12 @@ void Graph::infectNode(int nodeInd){
 bool Graph::isInfected(int nodeInd){
     return nodes[nodeInd]!=0;
 }
+bool Graph::isSick(int nodeInd) const{
+    return nodes[nodeInd] == 2;
+}
+void Graph::becomeSick(int nodeInd) {
+    nodes[nodeInd] = 2;
+}
 
 
 //Getters and setters:
