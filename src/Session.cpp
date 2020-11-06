@@ -5,12 +5,12 @@
 //Constructors:
 
 //empty constructor
-Session::Session():g(),treeType(treeType),agents(vector<Agent*>()){
+Session::Session():g(),treeType(treeType),agents(vector<Agent*>()),infectedQueue(vector<int>()){
 
 }
 
 //regular constructor
-Session::Session(const std::string& path):g(),treeType(treeType),agents(vector<Agent*>()){
+Session::Session(const std::string& path):g(),treeType(treeType),agents(vector<Agent*>()),infectedQueue(vector<int>()){
     //input
     ifstream i (path);
     json j;
@@ -27,16 +27,22 @@ Session::Session(const std::string& path):g(),treeType(treeType),agents(vector<A
         treeType = Root;
     }
     //construct agent:
-    vector<Agent*> newAgents;
-    for (auto& elem: j["Agents"]){//TODO complete
-
+    for (auto& elem: j["Agents"]){
+            if(elem[0] == "V"){
+                Agent* virus = new Virus(elem[1]);
+                agents.push_back(virus);
+            }
+            else{
+                Agent* contactTracer= new ContactTracer();
+                agents.push_back(contactTracer);
+            }
     }
     //construct graph:
     Graph g(j["graph"]);
 }
 
 //copy constructor
-Session::Session(const Session& other):g(other.g),treeType(other.treeType),agents(vector<Agent*>()){
+Session::Session(const Session& other):g(other.g),treeType(other.treeType),agents(vector<Agent*>()),infectedQueue(other.infectedQueue){
     for (int i = 0; i < other.agents.size();++i){
         Agent* newAgent = other.agents[i]->clone();
         agents.push_back(newAgent);
@@ -44,7 +50,7 @@ Session::Session(const Session& other):g(other.g),treeType(other.treeType),agent
 }
 
 //move constructor
-Session::Session(Session &&other):g(other.g),treeType(other.treeType),agents(vector<Agent*>(other.agents)){
+Session::Session(Session &&other):g(other.g),treeType(other.treeType),agents(vector<Agent*>(other.agents)),infectedQueue(other.infectedQueue){
     for(int i = 0; i < other.agents.size();++i){
         other.agents[i] = nullptr;
     }
@@ -70,6 +76,7 @@ const Session& Session:: operator=(Session &&other){
     if (this != &other){
         treeType = other.treeType;
         g = other.g;
+        infectedQueue = other.infectedQueue;
         clear();
         agents = other.agents;
         for(int i = 0; i < other.agents.size();++i){
@@ -79,7 +86,12 @@ const Session& Session:: operator=(Session &&other){
     return *this;
 }
 
-
+// Destructors
+Session::~Session() {
+    for(int i = 0; i< agents.size();++i) {
+        delete agents[i];
+    }
+}
 void Session::simulate(){
     //simulate:
 
@@ -103,8 +115,10 @@ void Session::simulate(){
 }
 
 void Session:: addAgent(const Agent& agent){
-    Agent* clone = agent.clone();//
+    Agent* clone = agent.clone();
+    agents.push_back(clone);
 }
+
 
 void Session:: clear(){
     for(int i = 0; i < agents.size();++i){
@@ -115,6 +129,17 @@ void Session:: clear(){
     }
 }
 
+void Session:: enqueueInfected(int nodeInd){
+    infectedQueue.push_back(nodeInd);
+}
+int Session::dequeueInfected() {
+    int output = infectedQueue[0];
+    infectedQueue.erase(infectedQueue.begin());
+}
+
+void Session::setInfected(int nodeInd) {
+
+}
 TreeType Session::getTreeType() const {
     return treeType;
 }

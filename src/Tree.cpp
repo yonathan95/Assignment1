@@ -34,7 +34,7 @@ const Tree& Tree:: operator=(const Tree &other){
     return *this;
 }
 //move assignment
-const Tree& Tree:: operator=(Tree &&other){//TODO check
+const Tree& Tree:: operator=(Tree &&other){
     if (this != &other){
         node = other.node;
         clear();
