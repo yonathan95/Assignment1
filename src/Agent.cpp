@@ -52,7 +52,7 @@ void Virus:: act(Session& session){
     }
     bool found = false;
     //looking for the first virus-free neighbour to infect.
-    for(int j = 0 ; j <g.getEdges().size() & !(found); ++j){
+    for(int j = 0 ; (j < g.getEdges().size()) & !(found); ++j){
         // find the neighbor of the node number nodeInd.
         if(g.getEdges()[nodeInd][j] == 1){
             // find the first virus free neighbor to infect.

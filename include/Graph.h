@@ -8,7 +8,7 @@ class Graph{
 public:
     //Constructors:
     Graph();
-    Graph(std::vector<std::vector<int>> matrix);
+    Graph(vector<std::vector<int>> matrix);
 
     //Class functions:
     void infectNode(int nodeInd);

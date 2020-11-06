@@ -78,8 +78,7 @@ void Tree:: clear(){
 
 //Static functions:
 
-Tree* createTree(const Session& session, int rootLabel){
-    Tree* pTree;
+Tree* Tree::createTree(const Session& session, int rootLabel){
     if(session.getTreeType() == MaxRank){
         return new MaxRankTree(rootLabel);
     }
@@ -92,13 +91,13 @@ Tree* createTree(const Session& session, int rootLabel){
 }
 
 void Tree::bfs(const Session& session, int rootLabel) {
-    const vector<vector<int>> *pedges = &(session.getGraph().getEdges());
+    const vector<vector<int>> *pEdges = &(session.getGraph().getEdges());
     vector<Tree*> queue = vector<Tree*>();
-    vector<int> isVisited = vector<int>(pedges->size());
+    vector<int> isVisited = vector<int>(pEdges->size());
     isVisited[node] = 1;
-    for(int i = 0; i < pedges->size();++i ){
+    for(int i = 0; i < pEdges->size(); ++i ){
         if(i != node){
-            if((*pedges)[node][i] == 1) {
+            if((*pEdges)[node][i] == 1) {
                 Tree *tree = createTree(session, rootLabel);
                 queue.push_back(tree);
                 addChild(tree);
@@ -111,9 +110,9 @@ void Tree::bfs(const Session& session, int rootLabel) {
         queue.erase(queue.begin());
         if(isVisited[(child)->node] != 1){
             isVisited[child->node] = 1;
-            for(int i = 0; i < pedges->size();++i ){
+            for(int i = 0; i < pEdges->size(); ++i ){
                 if(i != child->node & isVisited[i] != 1){
-                    if((*pedges)[child->node][i] == 1){
+                    if((*pEdges)[child->node][i] == 1){
                         Tree* tree = createTree(session,rootLabel);
                         queue.push_back(tree);
                         child->addChild(tree);
@@ -143,11 +142,11 @@ vector<int>& Tree:: maxRank(int depth){
         if (newResult[1] > result[1]){
             result = newResult;
         }
-        else if(newResult[1] = result[1]){
+        else if(newResult[1] == result[1]){
             if(newResult[2] < result[2]){
                 result = newResult;
             }
-            else if(newResult[2] = result[2]){
+            else if(newResult[2] == result[2]){
                 if(newResult[0] < result[0]){
                     result = newResult;
                 }
@@ -162,19 +161,40 @@ vector<int>& Tree:: maxRank(int depth){
 //Class CycleTree:
 
 //Constructor:
+CycleTree::CycleTree():Tree(),currCycle(0){}
+
 CycleTree:: CycleTree(int rootLabel, int currCycle):Tree(rootLabel),currCycle(currCycle){}
 
-//Class functions:
-void CycleTree::setCurrCycle(int cycle) {
-    currCycle = cycle;
+CycleTree:: CycleTree(const CycleTree &other):Tree(other),currCycle(other.currCycle){}
+
+CycleTree:: CycleTree(CycleTree &&other):Tree(other),currCycle(other.currCycle){}
+
+const CycleTree& CycleTree:: operator=(const CycleTree &other){
+    if(this != &other){
+        *this = other;
+        currCycle = other.currCycle;
+    }
+    return *this;
 }
+
+const CycleTree& CycleTree:: operator=(CycleTree &&other){
+    if(this != &other){
+        *this = other;
+        currCycle = other.currCycle;
+    }
+    return *this;
+}
+
+
+
+//Class functions:
 
 //Virtual functions:
 Tree* CycleTree::clone() const{
     return new CycleTree(*this);
-};
+}
 int CycleTree::traceTree() {
-    if(children.empty()|currCycle == 0){
+    if(children.empty()|(currCycle == 0)){
         return node;
     }
     else{
@@ -218,7 +238,7 @@ RootTree:: RootTree(int rootLabel):Tree(rootLabel){}
 //Virtual functions:
 Tree* RootTree::clone() const{
     return new RootTree(*this);
-};
+}
 
 int RootTree::traceTree() {
     return node;

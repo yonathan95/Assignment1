@@ -39,7 +39,7 @@ public:
     void addAgent(const Agent& agent);
     void setGraph(const Graph& graph);
     void enqueueInfected(int);
-    void setInfected(int);//TODO Elad complete
+    void setInfected(int);
     int dequeueInfected();
     TreeType getTreeType() const;
     const Graph& getGraph() const;

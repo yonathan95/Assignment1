@@ -30,7 +30,6 @@ public:
     const vector<Tree*>& getChildren() const;
     int getNode();
 
-
     //Static functions:
     static Tree* createTree(const Session& session, int rootLabel);
 
@@ -54,9 +53,6 @@ public:
     CycleTree(CycleTree &&other);
     const CycleTree& operator=(const CycleTree &other);
     const CycleTree& operator=(CycleTree &&other);
-
-    //Class functions:
-    void setCurrCycle(int cycle);
 
     //Virtual functions:
     virtual int traceTree();

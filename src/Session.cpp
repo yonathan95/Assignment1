@@ -5,12 +5,12 @@
 //Constructors:
 
 //empty constructor
-Session::Session():g(),treeType(treeType),agents(vector<Agent*>()),infectedQueue(vector<int>()),currCycle(0){
+Session::Session():g(),treeType(Root),agents(vector<Agent*>()),infectedQueue(vector<int>()),currCycle(0){
 
 }
 
 //regular constructor
-Session::Session(const std::string& path):g(),treeType(treeType),agents(vector<Agent*>()),infectedQueue(vector<int>()),currCycle(0){
+Session::Session(const std::string& path):g(),treeType(Root),agents(vector<Agent*>()),infectedQueue(vector<int>()),currCycle(0){
     //input
     ifstream i (path);
     json j;
@@ -99,7 +99,7 @@ void Session::simulate(){
 int numberOfAgent = 0;
 int numberOfAgentAfterIter  = 0;
 bool initialized = true;
-while(numberOfAgent != numberOfAgentAfterIter | initialized ){
+while((numberOfAgent != numberOfAgentAfterIter) | initialized ){
     initialized = false;
     int numberOfAgent = agents.size();
     for(int i = 0; i < numberOfAgent; ++i){
@@ -137,8 +137,9 @@ void Session:: enqueueInfected(int nodeInd){
 int Session::dequeueInfected() {
     int output = infectedQueue[0];
     infectedQueue.erase(infectedQueue.begin());
+    return output;
 }
-// change vertics to be infected and add it to the agent list.
+// change vertices to be infected and add it to the agent list.
 void Session::setInfected(int nodeInd) {
     g.infectNode(nodeInd);
     Virus newVirus(nodeInd);
