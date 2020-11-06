@@ -97,7 +97,7 @@ Tree* createTree(const Session& session, int rootLabel){
 CycleTree:: CycleTree(int rootLabel, int currCycle):Tree(rootLabel),currCycle(currCycle){}
 
 //Virtual functions:
-Tree* CycleTree::clone(){
+Tree* CycleTree::clone() const{
     return new CycleTree(*this);
 };
 int CycleTree::traceTree() {//TODO complete
@@ -111,7 +111,7 @@ int CycleTree::traceTree() {//TODO complete
 MaxRankTree:: MaxRankTree(int rootLabel):Tree(rootLabel){}
 
 //Virtual functions:
-Tree* MaxRankTree::clone(){
+Tree* MaxRankTree::clone() const{
     return new MaxRankTree(*this);
 };
 
@@ -128,7 +128,7 @@ RootTree:: RootTree(int rootLabel):Tree(rootLabel){}
 
 
 //Virtual functions:
-Tree* RootTree::clone(){
+Tree* RootTree::clone() const{
     return new RootTree(*this);
 };
 
