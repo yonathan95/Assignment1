@@ -29,7 +29,7 @@ public:
     void bfs(const Session& session, int rootLabel);
     const vector<Tree*>& getChildren() const;
     int getNode();
-    vector<int>& maxRank();
+
 
     //Static functions:
     static Tree* createTree(const Session& session, int rootLabel);
@@ -42,11 +42,12 @@ protected:
     //Fields:
     int node;
     vector<Tree*> children;
+    vector<int>& maxRank(int depth);
 };
 
 class CycleTree: public Tree{
 public:
-    //Constructor:TODO rule of 5
+    //Constructor:
     CycleTree();
     CycleTree(int rootLabel, int currCycle);
     CycleTree(const CycleTree &other);

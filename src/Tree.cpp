@@ -129,15 +129,26 @@ int Tree::getNode() {
     return node;
 }
 
-vector<int>& Tree:: maxRank(){
-    vector<int> result = vector<int>(2);
+vector<int>& Tree:: maxRank(int depth){
+    vector<int> result = vector<int>(3);
     result[0] = node;
     result[1] = children.size();
-    vector<int> childResult = vector<int>(2);
+    result[2] = depth;
+    vector<int> newResult = vector<int>(3);
     for (int i = 0;i < children.size();++i){
-        childResult = children[i]->maxRank();
-        if ((childResult[1] > result[1])|(childResult[1] = result[1] & childResult[0] < result[0])){
-            result = childResult;
+        newResult = children[i]->maxRank(depth+1);
+        if (newResult[1] > result[1]){
+            result = newResult;
+        }
+        else if(newResult[1] = result[1]){
+            if(newResult[2] < result[2]){
+                result = newResult;
+            }
+            else if(newResult[2] = result[2]){
+                if(newResult[0] < result[0]){
+                    result = newResult;
+                }
+            }
         }
     }
     return result;
@@ -189,11 +200,9 @@ Tree* MaxRankTree::clone() const{
 }
 
 int MaxRankTree::traceTree() {
-    vector<int> result = maxRank();
+    vector<int> result = maxRank(0);
     return result[0];
 }
-
-
 
 //---------------------------------------------------------------------------------------------------//
 //Class RootTree:
