@@ -42,6 +42,7 @@ public:
     void setInfected(int);//TODO Elad complete
     int dequeueInfected();//TODO Elad complete
     TreeType getTreeType() const;
+    const Graph getGraph() const;//TODO Elad complete
 
     
 private:

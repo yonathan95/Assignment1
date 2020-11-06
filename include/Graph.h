@@ -19,7 +19,6 @@ public:
     const vector <int> & getNodes() const;
     void becomeSick(vector<int> & node,int nodeInt);
     const vector<vector<int>>& getEdges() const;
-    const Graph getGraph() const;//TODO Elad complete
     
 private:
     //Fields:
