@@ -78,16 +78,47 @@ void Tree:: clear(){
 
 //Static functions:
 
-Tree* createTree(const Session& session, int rootLabel, int cycle){//TODO complete
+Tree* createTree(const Session& session, int rootLabel){
+    Tree* pTree;
     if(session.getTreeType() == MaxRank){
-        MaxRankTree tree = MaxRankTree(rootLabel);
-        tree.bfs(session.getGraph(),rootLabel,cycle);
+        return new MaxRankTree(rootLabel);
     }
     else if(session.getTreeType() == Cycle){
-        CycleTree tree = CycleTree(rootLabel,cycle);
+        return new CycleTree(rootLabel,0);
     }
     else{
-        RootTree tree = RootTree(rootLabel);
+        return new RootTree(rootLabel);
+    }
+    return pTree;
+}
+
+void Tree::bfs(const Session& session, int rootLabel) {
+    vector<vector<int>> edges = session.getGraph().getEdges();
+    vector<Tree*> queue = vector<Tree*>();
+    vector<int> isVisited = vector<int>(edges.size());
+    for(int i = 0; i < edges.size();++i ){
+        if(edges[node][i] == 1){
+            Tree* tree = createTree(session,rootLabel);
+            edges[node][i] = edges[i][node] = 0;
+            queue.push_back(tree);
+            addChild(tree);
+        }
+    }
+
+    while(!queue.empty()){
+        Tree* child = queue[0];
+        queue.erase(queue.begin());
+        if(isVisited[(child)->node] != 1){
+            isVisited[child->node] = 1;
+            for(int i = 0; i < edges.size();++i ){
+                if(edges[child->node][i] == 1){
+                    Tree* tree = createTree(session,rootLabel);
+                    edges[child->node][i] = edges[i][child->node] = 0;
+                    queue.push_back(tree);
+                    child->addChild(tree);
+                }
+            }
+        }
     }
 }
 
@@ -101,15 +132,6 @@ CycleTree:: CycleTree(int rootLabel, int currCycle):Tree(rootLabel),currCycle(cu
 //Class functions:
 void CycleTree::setCurrCycle(int cycle) {
     currCycle = cycle;
-}
-
-Tree* Tree::bfs(const Graph& g, Tree& tree, int cycle) {
-    vector<vector<int>> edges = g.getEdges();
-    for(int i = 0; i < edges.size();++i ){
-        if(edges[tree.node][i] == 1){
-
-        }
-    }
 }
 
 //Virtual functions:
@@ -129,7 +151,7 @@ MaxRankTree:: MaxRankTree(int rootLabel):Tree(rootLabel),ranks(vector<int>()){}
 //Virtual functions:
 Tree* MaxRankTree::clone() const{
     return new MaxRankTree(*this);
-};
+}
 
 int MaxRankTree::traceTree() {//TODO complete
 

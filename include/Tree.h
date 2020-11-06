@@ -26,6 +26,7 @@ public:
     void addChild(const Tree& child);
     void addChild(Tree* child);
     void clear();
+    void bfs(const Session& session, int rootLabel);
 
     //Static functions:
     static Tree* createTree(const Session& session, int rootLabel);
@@ -33,7 +34,6 @@ public:
     //Pure Virtual functions
     virtual int traceTree()=0;
     virtual Tree* clone() const = 0;
-    virtual Tree* bfs(const Graph& g, Tree& tree, int cycle) = 0;
 
 protected:
     //Fields:
@@ -44,7 +44,12 @@ protected:
 class CycleTree: public Tree{
 public:
     //Constructor:TODO rule of 5
+    CycleTree();
     CycleTree(int rootLabel, int currCycle);
+    CycleTree(const CycleTree &other);
+    CycleTree(CycleTree &&other);
+    const CycleTree& operator=(const CycleTree &other);
+    const CycleTree& operator=(CycleTree &&other);
 
     //Class functions:
     void setCurrCycle(int cycle);
@@ -52,7 +57,6 @@ public:
     //Virtual functions:
     virtual int traceTree();
     virtual Tree* clone() const;
-    virtual Tree* bfs(const Graph& g, Tree& tree, int cycle);
 
 private:
     //Fields:
@@ -62,12 +66,12 @@ private:
 class MaxRankTree: public Tree{//TODO rule of 5
 public:
     //Constructor:
+
     MaxRankTree(int rootLabel);
 
     //Virtual functions:
     virtual int traceTree();
     virtual Tree* clone() const;
-    virtual Tree* bfs(const Graph& g, Tree& tree, int cycle);
 
 private:
     //Field:
@@ -82,7 +86,6 @@ public:
     //Virtual functions:
     virtual int traceTree();
     virtual Tree* clone() const;
-    virtual Tree* bfs(const Graph& g, Tree& tree, int cycle);
 };
 
 
