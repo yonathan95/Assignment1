@@ -18,7 +18,8 @@ public:
     //Getters and setters:
     const vector <int> & getNodes() const;
     void becomeSick(vector<int> & node,int nodeInt);
-    vector<vector<int>>& getEdges();
+    const vector<vector<int>>& getEdges() const;
+    const Graph getGraph() const;//TODO Elad complete
     
 private:
     //Fields:

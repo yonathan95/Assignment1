@@ -42,11 +42,12 @@ public:
     void setInfected(int);//TODO Elad complete
     int dequeueInfected();//TODO Elad complete
     TreeType getTreeType() const;
+
     
 private:
     Graph g;
     TreeType treeType;
-    std::vector<Agent*> agents;
+    vector<Agent*> agents;
 };
 
 #endif
