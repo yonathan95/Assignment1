@@ -96,21 +96,23 @@ Session::~Session() {
 }
 void Session::simulate(){
     //simulate:
-int sum = 0;
-int newSum = 0;
+int numberOfAgent = 0;
+int numberOfAgentAfterIter  = 0;
 bool initialized = true;
-while(sum != newSum | initialized ){
+while(numberOfAgent != numberOfAgentAfterIter | initialized ){
     initialized = false;
-    sum = g.numberOfSick();
     int numberOfAgent = agents.size();
     for(int i = 0; i < numberOfAgent; ++i){
         agents[i]->act(*this);
     }
-    newSum = g.numberOfSick();
+    numberOfAgentAfterIter = agents.size();
 }
 //output:
     json j;
     vector<int> v = g.getInfectedNodes();
+    for(int i = 0; i < g.getEdges().size(); ++i){
+        g.setEdge(i,i,0);
+    }
     j["infectedNodes"] = v;
     j["graph"] = g.getEdges();
     ofstream i("output.json");

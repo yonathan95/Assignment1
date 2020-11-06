@@ -2,53 +2,47 @@
 using namespace std;
 
 //Constructors:
-Graph::Graph():edges(vector<vector<int>>()),nodes(vector<int>()){}
+Graph::Graph():edges(vector<vector<int>>()){}
 
 // create a deep copy of the matrix.
-Graph::Graph(vector<vector<int>> matrix):edges(matrix),nodes(vector<int>(matrix.size())){}
+Graph::Graph(vector<vector<int>> matrix):edges(matrix){}
 
 //Class functions:
 void Graph::infectNode(int nodeInd){
-    nodes[nodeInd] = 1;
+    edges[nodeInd][nodeInd] = 1;
 }
 
 bool Graph::isInfected(int nodeInd){
-    return nodes[nodeInd]!=0;
+    return edges[nodeInd][nodeInd] != 0;
 }
 bool Graph::isSick(int nodeInd) const{
-    return nodes[nodeInd] == 2;
+    return edges[nodeInd][nodeInd] == 2;
 }
 void Graph::becomeSick(int nodeInd) {
-    nodes[nodeInd] = 2;
-}
-int Graph::numberOfSick() {
-    int sum = 0;
-    for(int i = 0; i < nodes.size(); ++i){
-        sum = sum + nodes[i];
-    }
-    return sum;
+    edges[nodeInd][nodeInd] = 2;
 }
 
 void Graph::quarantineNode(int nodeToQuarantine) {
     for(int i = 0; i < edges.size(); ++i){
-        edges[nodeToQuarantine][i] = edges[i][nodeToQuarantine] = 0;
+        if(i != nodeToQuarantine){
+            edges[nodeToQuarantine][i] = edges[i][nodeToQuarantine] = 0;
+        }
+
     }
 }
 
 //Getters and setters:
-
-  const vector<int> & Graph::getNodes() const{
-     return nodes;
- }
-
 vector<int> Graph::getInfectedNodes(){
     vector <int> output;
-    for(int i = 0; i < nodes.size() ; ++i){
-        if(nodes[i] != 0){
+    for(int i = 0; i < edges.size() ; ++i){
+        if(edges[i][i] != 0){
             output.push_back(i);
         }
     }
     return output;
+}
+void Graph::setEdge(int nodeInd, int nodeNeib, int status) {
+    edges[nodeInd][nodeNeib] = status;
 }
 const vector<vector<int>>& Graph::getEdges() const{
     return edges;

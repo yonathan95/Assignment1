@@ -92,15 +92,17 @@ Tree* createTree(const Session& session, int rootLabel){
 }
 
 void Tree::bfs(const Session& session, int rootLabel) {
-    vector<vector<int>> edges = session.getGraph().getEdges();
+    const vector<vector<int>> *pedges = &(session.getGraph().getEdges());
     vector<Tree*> queue = vector<Tree*>();
-    vector<int> isVisited = vector<int>(edges.size());
-    for(int i = 0; i < edges.size();++i ){
-        if(edges[node][i] == 1){
-            Tree* tree = createTree(session,rootLabel);
-            edges[node][i] = edges[i][node] = 0;
-            queue.push_back(tree);
-            addChild(tree);
+    vector<int> isVisited = vector<int>(pedges->size());
+    isVisited[node] = 1;
+    for(int i = 0; i < pedges->size();++i ){
+        if(i != node){
+            if((*pedges)[node][i] == 1) {
+                Tree *tree = createTree(session, rootLabel);
+                queue.push_back(tree);
+                addChild(tree);
+            }
         }
     }
 
@@ -109,12 +111,13 @@ void Tree::bfs(const Session& session, int rootLabel) {
         queue.erase(queue.begin());
         if(isVisited[(child)->node] != 1){
             isVisited[child->node] = 1;
-            for(int i = 0; i < edges.size();++i ){
-                if(edges[child->node][i] == 1){
-                    Tree* tree = createTree(session,rootLabel);
-                    edges[child->node][i] = edges[i][child->node] = 0;
-                    queue.push_back(tree);
-                    child->addChild(tree);
+            for(int i = 0; i < pedges->size();++i ){
+                if(i != child->node & isVisited[i] != 1){
+                    if((*pedges)[child->node][i] == 1){
+                        Tree* tree = createTree(session,rootLabel);
+                        queue.push_back(tree);
+                        child->addChild(tree);
+                    }
                 }
             }
         }

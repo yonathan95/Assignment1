@@ -15,19 +15,17 @@ public:
     bool isInfected(int nodeInd);
     bool isSick(int nodeInd) const;
     void becomeSick(int nodeInd);
-    int numberOfSick();
     void quarantineNode(int nodeToQuarantine );
 
     //Getters and setters:
-    const vector <int> & getNodes() const;
     const vector<vector<int>>& getEdges() const;
     vector<int> getInfectedNodes();
+    void setEdge(int nodeInd, int nodeNeib , int status);
 
     
 private:
     //Fields:
     vector<vector<int>> edges;
-    vector<int> nodes;
 };
 
 #endif

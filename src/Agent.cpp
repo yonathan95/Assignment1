@@ -45,7 +45,7 @@ Agent* Virus:: clone() const{
 }
 
 void Virus:: act(Session& session){
-    Graph g = session.getGraphForChange();
+    Graph& g = session.getGraphForChange();
     //push it-self to the infectedQueue if he hse not been there yet.
     if(!(g.isSick(nodeInd))){
         g.becomeSick(nodeInd);
