@@ -78,23 +78,39 @@ void Tree:: clear(){
 
 //Static functions:
 
-Tree* createTree(const Session& session, int rootLabel){
+Tree* createTree(const Session& session, int rootLabel, int cycle){//TODO complete
     if(session.getTreeType() == MaxRank){
-
+        MaxRankTree tree = MaxRankTree(rootLabel);
+        tree.bfs(session.getGraph(),rootLabel,cycle);
     }
     else if(session.getTreeType() == Cycle){
-
+        CycleTree tree = CycleTree(rootLabel,cycle);
     }
     else{
-
+        RootTree tree = RootTree(rootLabel);
     }
-}//TODO complete
+}
+
 
 //---------------------------------------------------------------------------------------------------//
 //Class CycleTree:
 
 //Constructor:
 CycleTree:: CycleTree(int rootLabel, int currCycle):Tree(rootLabel),currCycle(currCycle){}
+
+//Class functions:
+void CycleTree::setCurrCycle(int cycle) {
+    currCycle = cycle;
+}
+
+Tree* Tree::bfs(const Graph& g, Tree& tree, int cycle) {
+    vector<vector<int>> edges = g.getEdges();
+    for(int i = 0; i < edges.size();++i ){
+        if(edges[tree.node][i] == 1){
+
+        }
+    }
+}
 
 //Virtual functions:
 Tree* CycleTree::clone() const{
@@ -108,7 +124,7 @@ int CycleTree::traceTree() {//TODO complete
 //Class MaxRankTree:
 
 //Constructors:
-MaxRankTree:: MaxRankTree(int rootLabel):Tree(rootLabel){}
+MaxRankTree:: MaxRankTree(int rootLabel):Tree(rootLabel),ranks(vector<int>()){}
 
 //Virtual functions:
 Tree* MaxRankTree::clone() const{

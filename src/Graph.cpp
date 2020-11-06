@@ -45,7 +45,7 @@ vector<int> Graph::getInfectedNodes(){
     }
     return output;
 }
-vector<vector<int>>& Graph::getEdges(){
+const vector<vector<int>>& Graph::getEdges() const{
     return edges;
 }
 

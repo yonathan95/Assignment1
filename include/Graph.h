@@ -18,7 +18,7 @@ public:
     //Getters and setters:
     const vector <int> & getNodes() const;
     void becomeSick(vector<int> & node,int nodeInt);
-    vector<vector<int>>& getEdges();
+    const vector<vector<int>>& getEdges() const;
     
 private:
     //Fields:
