@@ -98,29 +98,23 @@ void Session::simulate(){
     //simulate:
 int sum = 0;
 int newSum = 0;
-bool intion = true;
-while(sum != newSum | intion ){
-    intion = false;
-    sum = g.numberOfsick();
-    for(auto& elem:  )
+bool initialized = true;
+while(sum != newSum | initialized ){
+    initialized = false;
+    sum = g.numberOfSick();
+    int numberOfAgent = agents.size();
+    for(int i = 0; i < numberOfAgent; ++i){
+        agents[i]->act(*this);
+    }
+    newSum = g.numberOfSick();
 }
-
-
-
-
-
-
-
-
-
-    //output:
+//output:
     json j;
     vector<int> v = g.getInfectedNodes();
     j["infectedNodes"] = v;
     j["graph"] = g.getEdges();
     ofstream i("output.json");
     j >> i;
-
 }
 // allocate new memory on the heap for a new agent and add t the the agent list.
 void Session:: addAgent(const Agent& agent){
