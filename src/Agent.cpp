@@ -1,7 +1,6 @@
 #include "Agent.h"
 #include <vector>
-#include "Tree.h"
-#include "Session.h"
+
 
 //Class Agent:
 
