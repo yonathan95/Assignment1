@@ -5,11 +5,7 @@ using namespace std;
 Graph::Graph():edges(vector<vector<int>>()),nodes(vector<int>()){}
 
 // create a deep copy of the matrix.
-Graph::Graph(vector<vector<int>> matrix):edges(matrix),nodes(vector<int>(matrix.size())){
-    for(int i =0; i < nodes.size();++i){
-        nodes[i]=0;
-    }
-}
+Graph::Graph(vector<vector<int>> matrix):edges(matrix),nodes(vector<int>(matrix.size())){}
 
 //Class functions:
 void Graph::infectNode(int nodeInd){

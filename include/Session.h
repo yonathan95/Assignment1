@@ -24,31 +24,32 @@ class Session{
 public:
     //Constructors:
     Session();
-    Session(const std::string& path);//TODO Elad complete
+    Session(const std::string& path);
     Session(const Session& other);
     Session(Session &&other);
     const Session& operator=(const Session &other);
     const Session& operator=(Session &&other);
 
     //Destructors:
-    virtual ~Session();//TODO delete all agents in the vector //TODO Elad complete
+    virtual ~Session();
 
     //Class functions:
     void simulate();
     void clear();
-    void addAgent(const Agent& agent);//TODO Elad complete
+    void addAgent(const Agent& agent);
     void setGraph(const Graph& graph);
-    void enqueueInfected(int);//TODO Elad complete
+    void enqueueInfected(int);
     void setInfected(int);//TODO Elad complete
-    int dequeueInfected();//TODO Elad complete
+    int dequeueInfected();
     TreeType getTreeType() const;
-    const Graph getGraph() const;//TODO Elad complete
+    const Graph getGraph() const;
 
-    
+
 private:
     Graph g;
     TreeType treeType;
-    vector<Agent*> agents;
+    std::vector<Agent*> agents;
+    std:: vector<int> infectedQueue;
 };
 
 #endif
