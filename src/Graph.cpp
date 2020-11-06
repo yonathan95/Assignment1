@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Graph.h"
 using namespace std;
 
@@ -32,18 +33,31 @@ void Graph::quarantineNode(int nodeToQuarantine) {
 }
 
 //Getters and setters:
-vector<int> Graph::getInfectedNodes(){
-    vector <int> output;
-    for(int i = 0; i < edges.size() ; ++i){
+vector<int>* Graph::getInfectedNodes(){//TODO change made
+    vector<int>* output = new vector<int>();
+    for(int i=0;i<edges.size();++i){
+        cout<<endl;
+        for(int j=0;i<edges.size();++j){
+            cout<<edges[i][j];
+        }
+    }
+    for(int i = 0; i < edges.size(); ++i){
+        cout<<"enterfor"<<endl;
+        cout<<edges[i][i]<<endl;
         if(edges[i][i] != 0){
-            output.push_back(i);
+            cout<<"enterif"<<endl;
+            output->push_back(i);
             edges[i][i] = 0;
         }
+    }
+    for(int i :*output){
+        cout<<i<<endl;
+        cout<<"empty"<<endl;
     }
     return output;
 }
 void Graph::setEdge(int nodeInd, int nodeNeib, int status) {
-    edges[nodeInd][nodeNeib] = status;
+    edges[nodeInd][nodeNeib] = edges[nodeNeib][nodeInd] = status;
 }
 const vector<vector<int>>& Graph::getEdges() const{
     return edges;

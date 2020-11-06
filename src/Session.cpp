@@ -38,7 +38,8 @@ Session::Session(const std::string& path):g(),treeType(Root),agents(vector<Agent
             }
     }
     //construct graph:
-    Graph g(j["graph"]);
+    Graph* pG = new Graph(j["graph"]);//TODO change made
+    g = *pG;//TODO change made
 }
 
 //copy constructor
@@ -108,12 +109,13 @@ while((numberOfAgent != numberOfAgentAfterIter) | initialized ){
     numberOfAgentAfterIter = agents.size();
 }
 //output:
-    json j;
-    vector<int> v = g.getInfectedNodes();
-    j["infectedNodes"] = v;
-    j["graph"] = g.getEdges();
-    ofstream i("output.json");
-    j >> i;
+json j;
+vector<int>* pIE = g.getInfectedNodes();
+vector<int> v = *pIE;//TODO changes made
+j["infectedNodes"] = v;
+j["graph"] = g.getEdges();
+ofstream i("output.json");
+j >> i;
 }
 // allocate new memory on the heap for a new agent and add t the the agent list.
 void Session:: addAgent(const Agent& agent){
