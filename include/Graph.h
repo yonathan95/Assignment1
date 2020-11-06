@@ -16,7 +16,7 @@ public:
     bool isSick(int nodeInd) const;
     vector<int> getInfectedNodes();
     void becomeSick(int nodeInd);
-
+    int numberOfsick();
     //Getters and setters:
     const vector <int> & getNodes() const;
     const vector<vector<int>>& getEdges() const;

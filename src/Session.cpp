@@ -5,12 +5,12 @@
 //Constructors:
 
 //empty constructor
-Session::Session():g(),treeType(treeType),agents(vector<Agent*>()),infectedQueue(vector<int>()){
+Session::Session():g(),treeType(treeType),agents(vector<Agent*>()),infectedQueue(vector<int>()),currCycle(0){
 
 }
 
 //regular constructor
-Session::Session(const std::string& path):g(),treeType(treeType),agents(vector<Agent*>()),infectedQueue(vector<int>()){
+Session::Session(const std::string& path):g(),treeType(treeType),agents(vector<Agent*>()),infectedQueue(vector<int>()),currCycle(0){
     //input
     ifstream i (path);
     json j;
@@ -42,7 +42,7 @@ Session::Session(const std::string& path):g(),treeType(treeType),agents(vector<A
 }
 
 //copy constructor
-Session::Session(const Session& other):g(other.g),treeType(other.treeType),agents(vector<Agent*>()),infectedQueue(other.infectedQueue){
+Session::Session(const Session& other):g(other.g),treeType(other.treeType),agents(vector<Agent*>()),infectedQueue(other.infectedQueue),currCycle(other.currCycle){
     for (int i = 0; i < other.agents.size();++i){
         Agent* newAgent = other.agents[i]->clone();
         agents.push_back(newAgent);
@@ -50,7 +50,7 @@ Session::Session(const Session& other):g(other.g),treeType(other.treeType),agent
 }
 
 //move constructor
-Session::Session(Session &&other):g(other.g),treeType(other.treeType),agents(vector<Agent*>(other.agents)),infectedQueue(other.infectedQueue){
+Session::Session(Session &&other):g(other.g),treeType(other.treeType),agents(vector<Agent*>(other.agents)),infectedQueue(other.infectedQueue),currCycle(other.currCycle){
     for(int i = 0; i < other.agents.size();++i){
         other.agents[i] = nullptr;
     }
@@ -61,6 +61,7 @@ const Session& Session:: operator=(const Session &other){
     if(this != &other){
         treeType = other.treeType;
         g = other.g;
+        currCycle = other.currCycle;
         clear();
         agents = vector<Agent*>(other.agents.size());
         for(int i = 0; i < other.agents.size();++i){
@@ -77,6 +78,7 @@ const Session& Session:: operator=(Session &&other){
         treeType = other.treeType;
         g = other.g;
         infectedQueue = other.infectedQueue;
+        currCycle = other.currCycle;
         clear();
         agents = other.agents;
         for(int i = 0; i < other.agents.size();++i){
@@ -94,7 +96,14 @@ Session::~Session() {
 }
 void Session::simulate(){
     //simulate:
-
+int sum = 0;
+int newSum = 0;
+bool intion = true;
+while(sum != newSum | intion ){
+    intion = false;
+    sum = g.numberOfsick();
+    for(auto& elem:  )
+}
 
 
 

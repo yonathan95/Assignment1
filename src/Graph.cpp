@@ -21,6 +21,13 @@ bool Graph::isSick(int nodeInd) const{
 void Graph::becomeSick(int nodeInd) {
     nodes[nodeInd] = 2;
 }
+int Graph::numberOfsick() {
+    int sum = 0;
+    for(int i = 0; i < nodes.size(); ++i){
+        sum = sum + nodes[i];
+    }
+    return sum;
+}
 
 
 //Getters and setters:

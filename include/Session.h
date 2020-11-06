@@ -45,11 +45,13 @@ public:
     const Graph& getGraph() const;
     Graph& getGraphForChange();
 
+
 private:
     Graph g;
     TreeType treeType;
     std::vector<Agent*> agents;
     std:: vector<int> infectedQueue;
+    int currCycle;
 };
 
 #endif
