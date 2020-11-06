@@ -26,6 +26,7 @@ public:
     void addChild(const Tree& child);
     void addChild(Tree* child);
     void clear();
+    void bfs(const Session& session, int rootLabel);
 
     //Static functions:
     static Tree* createTree(const Session& session, int rootLabel);
@@ -33,7 +34,6 @@ public:
     //Pure Virtual functions
     virtual int traceTree()=0;
     virtual Tree* clone() const = 0;
-    virtual Tree* bfs(const Graph& g, Tree& tree, int cycle) = 0;
 
 protected:
     //Fields:
@@ -52,7 +52,6 @@ public:
     //Virtual functions:
     virtual int traceTree();
     virtual Tree* clone() const;
-    virtual Tree* bfs(const Graph& g, Tree& tree, int cycle);
 
 private:
     //Fields:
@@ -67,7 +66,6 @@ public:
     //Virtual functions:
     virtual int traceTree();
     virtual Tree* clone() const;
-    virtual Tree* bfs(const Graph& g, Tree& tree, int cycle);
 
 private:
     //Field:
@@ -82,7 +80,6 @@ public:
     //Virtual functions:
     virtual int traceTree();
     virtual Tree* clone() const;
-    virtual Tree* bfs(const Graph& g, Tree& tree, int cycle);
 };
 
 

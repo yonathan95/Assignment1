@@ -28,6 +28,7 @@ bool Graph::isInfected(int nodeInd){
     return nodes[nodeInd]!=0;
 }
 
+
 //Getters and setters:
 
   const vector<int> & Graph::getNodes() const{
