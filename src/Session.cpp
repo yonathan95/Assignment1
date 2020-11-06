@@ -66,7 +66,7 @@ const Session& Session:: operator=(const Session &other){
 
 
 //move assignment
-const Session& Session:: operator=(Session &&other){//TODO check
+const Session& Session:: operator=(Session &&other){
     if (this != &other){
         treeType = other.treeType;
         g = other.g;
@@ -115,10 +115,10 @@ void Session:: clear(){
     }
 }
 
-TreeType Session::getTreeType() const {//TODO Elad check
+TreeType Session::getTreeType() const {
     return treeType;
 }
 
-void Session:: setGraph(const Graph& graph){//TODO Elad check
+void Session:: setGraph(const Graph& graph){
     g = graph;
 }
