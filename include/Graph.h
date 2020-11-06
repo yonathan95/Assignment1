@@ -15,7 +15,7 @@ public:
     bool isInfected(int nodeInd);
     bool isSick(int nodeInd) const;
     void becomeSick(int nodeInd);
-    int numberOfsick();
+    int numberOfSick();
     void quarantineNode(int nodeToQuarantine );
 
     //Getters and setters:

@@ -101,7 +101,7 @@ int newSum = 0;
 bool intion = true;
 while(sum != newSum | intion ){
     intion = false;
-    sum = g.numberOfsick();
+    sum = g.numberOfSick();
     for(auto& elem:  )
 }
 
