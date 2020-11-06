@@ -37,6 +37,7 @@ vector<int> Graph::getInfectedNodes(){
     for(int i = 0; i < edges.size() ; ++i){
         if(edges[i][i] != 0){
             output.push_back(i);
+            edges[i][i] = 0;
         }
     }
     return output;
