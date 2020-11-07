@@ -1,7 +1,6 @@
 #include "Session.h"
 #include <vector>
 #include <unordered_set>
-#include <iostream>
 
 //Constructors:
 
@@ -99,11 +98,9 @@ void Session::simulate(){
     int numberOfAgentAfterIter;
     int numberOfAgents;
     bool finished = false;
-    cout<<g.getEdges().size()<<endl;
     while(!finished){
         numberOfAgents = agents.size();
         for(int i = 0; i < numberOfAgents; ++i){
-            cout<<1<<endl;
             agents[i]->act(*this);
         }
         numberOfAgentAfterIter = agents.size();

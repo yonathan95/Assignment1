@@ -1,6 +1,5 @@
 #include "Agent.h"
 #include <vector>
-#include <iostream>
 
 
 
@@ -22,9 +21,7 @@ Agent* ContactTracer:: clone() const{
 }
 
 void ContactTracer:: act(Session& session){
-    cout<<2<<endl;
     Graph& g = session.getGraphForChange();
-    cout<<3<<endl;
     int rootLabel = session.dequeueInfected();
     if (rootLabel != -1){
         Tree* tree = Tree::createTree(session,rootLabel);
@@ -51,10 +48,7 @@ Agent* Virus:: clone() const{
 }
 
 void Virus:: act(Session& session){
-    cout<<4<<endl;
     Graph& g = session.getGraphForChange();
-    cout<<g.getEdges().size()<<endl;
-    cout<<5<<endl;
     //push it-self to the infectedQueue if he hse not been there yet.
     if(!(g.isSick(nodeInd))){
         g.becomeSick(nodeInd);
