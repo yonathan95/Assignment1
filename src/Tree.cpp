@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Tree.h"
 using namespace std;
 
@@ -94,11 +95,11 @@ void Tree::bfs(const Session& session, int rootLabel) {
     const vector<vector<int>> *pEdges = &(session.getGraph().getEdges());
     vector<Tree*> queue = vector<Tree*>();
     vector<int> isVisited = vector<int>(pEdges->size());
-    isVisited[node] = 1;
+    isVisited[node] = 2;
     for(int i = 0; i < pEdges->size(); ++i ){
         if(i != node){
             if((*pEdges)[node][i] == 1) {
-                Tree *tree = createTree(session, rootLabel);
+                Tree *tree = createTree(session, i);
                 queue.push_back(tree);
                 addChild(tree);
             }
@@ -108,12 +109,13 @@ void Tree::bfs(const Session& session, int rootLabel) {
     while(!queue.empty()){
         Tree* child = queue[0];
         queue.erase(queue.begin());
-        if(isVisited[(child)->node] != 1){
-            isVisited[child->node] = 1;
+        if(isVisited[(child)->node] != 2){
+            isVisited[child->node] = 2;
             for(int i = 0; i < pEdges->size(); ++i ){
-                if(i != child->node & isVisited[i] != 1){
+                if(i != child->node & isVisited[i] == 0){
                     if((*pEdges)[child->node][i] == 1){
-                        Tree* tree = createTree(session,rootLabel);
+                        Tree* tree = createTree(session,i);
+                        isVisited[i] = 1;
                         queue.push_back(tree);
                         child->addChild(tree);
                     }
@@ -131,7 +133,7 @@ int Tree::getNode() {
     return node;
 }
 
-vector<int>& Tree:: maxRank(int depth){
+vector<int> Tree:: maxRank(int depth){
     vector<int> result = vector<int>(3);
     result[0] = node;
     result[1] = children.size();

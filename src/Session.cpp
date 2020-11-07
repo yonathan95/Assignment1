@@ -1,6 +1,7 @@
 #include "Session.h"
 #include <vector>
 #include <unordered_set>
+#include <iostream>
 
 //Constructors:
 
@@ -26,8 +27,7 @@ Session::Session(const std::string& path):g(),treeType(Root),agents(vector<Agent
     else{
         treeType = Root;
     }
-    //construct agent:
-    for (auto& elem: j["Agents"]){
+    for (auto& elem: j["agents"]){
             if(elem[0] == "V"){
                 Agent* virus = new Virus(elem[1]);
                 agents.push_back(virus);
@@ -95,28 +95,28 @@ Session::~Session() {
         delete agents[i];
     }
 }
+
 void Session::simulate(){
-    //simulate:
-int numberOfAgent = 0;
-int numberOfAgentAfterIter  = 0;
-bool initialized = true;
-while((numberOfAgent != numberOfAgentAfterIter) | initialized ){
-    initialized = false;
-    int numberOfAgent = agents.size();
-    for(int i = 0; i < numberOfAgent; ++i){
-        agents[i]->act(*this);
+    int numberOfAgents = 0;
+    int numberOfAgentAfterIter  = 0;
+    bool finished = false;
+    while(!finished){
+        int numberOfAgents = agents.size();
+        for(int i = 0; i < numberOfAgents; ++i){
+            agents[i]->act(*this);
+        }
+        numberOfAgentAfterIter = agents.size();
+        finished = numberOfAgents == numberOfAgentAfterIter;
+        ++currCycle;
     }
-    numberOfAgentAfterIter = agents.size();
+    json j;
+    vector<int> v = g.getInfectedNodes();
+    j["infectedNodes"] = v;
+    j["graph"] = g.getEdges();
+    ofstream i("output.json");
+    j >> i;
 }
-//output:
-json j;
-vector<int>* pIE = g.getInfectedNodes();
-vector<int> v = *pIE;//TODO changes made
-j["infectedNodes"] = v;
-j["graph"] = g.getEdges();
-ofstream i("output.json");
-j >> i;
-}
+
 // allocate new memory on the heap for a new agent and add t the the agent list.
 void Session:: addAgent(const Agent& agent){
     Agent* clone = agent.clone();
@@ -137,6 +137,9 @@ void Session:: enqueueInfected(int nodeInd){
     infectedQueue.push_back(nodeInd);
 }
 int Session::dequeueInfected() {
+    if (infectedQueue.empty()){
+        return -1;
+    }
     int output = infectedQueue[0];
     infectedQueue.erase(infectedQueue.begin());
     return output;

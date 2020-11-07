@@ -1,5 +1,7 @@
 #include "Agent.h"
 #include <vector>
+#include <iostream>
+
 
 
 //Class Agent:
@@ -20,12 +22,21 @@ Agent* ContactTracer:: clone() const{
 }
 
 void ContactTracer:: act(Session& session){
+    cout <<"1"<<endl;
     Graph g = session.getGraphForChange();
+    cout <<"2"<<endl;
     int rootLabel = session.dequeueInfected();
-    Tree* tree = Tree::createTree(session,rootLabel);
-    tree->bfs(session,rootLabel);
-    int nodeToQuarantine = tree->traceTree();
-    g.quarantineNode(nodeToQuarantine);
+    if (rootLabel != -1){
+        cout <<"3"<<endl;
+        Tree* tree = Tree::createTree(session,rootLabel);
+        cout <<"4"<<endl;
+        tree->bfs(session,rootLabel);
+        cout <<"5"<<endl;
+        int nodeToQuarantine = tree->traceTree();
+        cout <<"6"<<endl;
+        g.quarantineNode(nodeToQuarantine);
+        cout <<"7"<<endl;
+    }
 }
 
 

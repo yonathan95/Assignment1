@@ -41,7 +41,7 @@ protected:
     //Fields:
     int node;
     vector<Tree*> children;
-    vector<int>& maxRank(int depth);
+    vector<int> maxRank(int depth);
 };
 
 class CycleTree: public Tree{

@@ -19,7 +19,7 @@ public:
 
     //Getters and setters:
     const vector<vector<int>>& getEdges() const;
-    vector<int>* getInfectedNodes();
+    vector<int> getInfectedNodes();
     void setEdge(int nodeInd, int nodeNeib , int status);
 
     
