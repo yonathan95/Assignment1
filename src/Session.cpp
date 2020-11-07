@@ -11,7 +11,7 @@ Session::Session():g(),treeType(Root),agents(vector<Agent*>()),infectedQueue(vec
 }
 
 //regular constructor
-Session::Session(const std::string& path):g(),treeType(Root),agents(vector<Agent*>()),infectedQueue(vector<int>()),currCycle(0){
+Session::Session(const std::string& path):g(vector<std::vector<int>>()),treeType(Root),agents(vector<Agent*>()),infectedQueue(vector<int>()),currCycle(0){
     //input
     ifstream i (path);
     json j;
@@ -38,8 +38,7 @@ Session::Session(const std::string& path):g(),treeType(Root),agents(vector<Agent
             }
     }
     //construct graph:
-    Graph* pG = new Graph(j["graph"]);//TODO change made
-    g = *pG;//TODO change made
+    g = Graph(j["graph"]);
 }
 
 //copy constructor
@@ -97,12 +96,14 @@ Session::~Session() {
 }
 
 void Session::simulate(){
-    int numberOfAgents = 0;
-    int numberOfAgentAfterIter  = 0;
+    int numberOfAgentAfterIter;
+    int numberOfAgents;
     bool finished = false;
+    cout<<g.getEdges().size()<<endl;
     while(!finished){
-        int numberOfAgents = agents.size();
+        numberOfAgents = agents.size();
         for(int i = 0; i < numberOfAgents; ++i){
+            cout<<1<<endl;
             agents[i]->act(*this);
         }
         numberOfAgentAfterIter = agents.size();

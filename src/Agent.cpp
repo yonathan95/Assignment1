@@ -22,20 +22,16 @@ Agent* ContactTracer:: clone() const{
 }
 
 void ContactTracer:: act(Session& session){
-    cout <<"1"<<endl;
-    Graph g = session.getGraphForChange();
-    cout <<"2"<<endl;
+    cout<<2<<endl;
+    Graph& g = session.getGraphForChange();
+    cout<<3<<endl;
     int rootLabel = session.dequeueInfected();
     if (rootLabel != -1){
-        cout <<"3"<<endl;
         Tree* tree = Tree::createTree(session,rootLabel);
-        cout <<"4"<<endl;
         tree->bfs(session,rootLabel);
-        cout <<"5"<<endl;
         int nodeToQuarantine = tree->traceTree();
-        cout <<"6"<<endl;
+        delete tree;
         g.quarantineNode(nodeToQuarantine);
-        cout <<"7"<<endl;
     }
 }
 
@@ -55,7 +51,10 @@ Agent* Virus:: clone() const{
 }
 
 void Virus:: act(Session& session){
+    cout<<4<<endl;
     Graph& g = session.getGraphForChange();
+    cout<<g.getEdges().size()<<endl;
+    cout<<5<<endl;
     //push it-self to the infectedQueue if he hse not been there yet.
     if(!(g.isSick(nodeInd))){
         g.becomeSick(nodeInd);

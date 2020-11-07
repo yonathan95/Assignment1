@@ -28,12 +28,11 @@ void Graph::quarantineNode(int nodeToQuarantine) {
         if(i != nodeToQuarantine){
             edges[nodeToQuarantine][i] = edges[i][nodeToQuarantine] = 0;
         }
-
     }
 }
 
 //Getters and setters:
-vector<int> Graph::getInfectedNodes(){//TODO change made
+vector<int> Graph::getInfectedNodes(){
     vector<int> output = vector<int>();
     for(int i = 0; i < edges.size(); ++i){
         if(edges[i][i] != 0){
