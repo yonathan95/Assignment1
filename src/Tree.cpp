@@ -129,7 +129,7 @@ const vector<Tree*>& Tree::getChildren() const {
     return children;
 }
 
-const int Tree::getNode() const{//TODO change made
+const int Tree::getNode() const{
     return node;
 }
 
