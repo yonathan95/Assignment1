@@ -18,8 +18,8 @@ Tree::Tree(const Tree &other):node(other.node),children(vector<Tree*>()){//
 }
 //move constructor
 Tree::Tree(Tree &&other):node(other.node),children(other.children){
-    for(int i = 0; i < other.children.size();++i){
-        other.children[i] = nullptr;
+    for(auto & i : other.children){
+        i = nullptr;
     }
 }
 //copy assignment
