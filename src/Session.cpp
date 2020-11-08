@@ -42,16 +42,16 @@ Session::Session(const std::string& path):g(vector<std::vector<int>>()),treeType
 
 //copy constructor
 Session::Session(const Session& other):g(other.g),treeType(other.treeType),agents(vector<Agent*>()),infectedQueue(other.infectedQueue),currCycle(other.currCycle){
-    for (int i = 0; i < other.agents.size();++i){
-        Agent* newAgent = other.agents[i]->clone();
+    for (auto agent : other.agents){
+        Agent* newAgent = agent->clone();
         agents.push_back(newAgent);
     }
 }
 
 //move constructor
 Session::Session(Session &&other):g(other.g),treeType(other.treeType),agents(vector<Agent*>(other.agents)),infectedQueue(other.infectedQueue),currCycle(other.currCycle){
-    for(int i = 0; i < other.agents.size();++i){
-        other.agents[i] = nullptr;
+    for(auto & agent : other.agents){
+        agent = nullptr;
     }
 }
 
@@ -80,8 +80,8 @@ const Session& Session:: operator=(Session &&other){
         currCycle = other.currCycle;
         clear();
         agents = other.agents;
-        for(int i = 0; i < other.agents.size();++i){
-            other.agents[i] = nullptr;
+        for(auto & agent : other.agents){
+            agent = nullptr;
         }
     }
     return *this;
@@ -89,8 +89,8 @@ const Session& Session:: operator=(Session &&other){
 
 // Destructors
 Session::~Session() {
-    for(int i = 0; i< agents.size();++i) {
-        delete agents[i];
+    for(auto & agent : agents) {
+        delete agent;
     }
 }
 
@@ -123,10 +123,10 @@ void Session:: addAgent(const Agent& agent){
 
 //delete the agents vector from the heap.
 void Session:: clear(){
-    for(int i = 0; i < agents.size();++i){
-        if (agents[i]){
-            delete agents[i];
-            agents[i] = nullptr;
+    for(auto & agent : agents){
+        if (agent){
+            delete agent;
+            agent = nullptr;
         }
     }
 }
@@ -148,12 +148,15 @@ void Session::setInfected(int nodeInd) {
     Virus newVirus(nodeInd);
     addAgent(newVirus);
 }
+
 TreeType Session::getTreeType() const {
     return treeType;
 }
+
 const Graph& Session::getGraph() const {
     return g;
 }
+
 Graph& Session::getGraphForChange() {
     return g;
 }

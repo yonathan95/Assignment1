@@ -1,11 +1,9 @@
-#include <iostream>
 #include "Graph.h"
 using namespace std;
 
 //Constructors:
 Graph::Graph():edges(vector<vector<int>>()){}
 
-// create a deep copy of the matrix.
 Graph::Graph(vector<vector<int>> matrix):edges(matrix){}
 
 //Class functions:

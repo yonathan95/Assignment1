@@ -1,13 +1,12 @@
 # All Targets
-all: Assignment1
+all: cTrace
 
 # Tool invocations
-# Executable "hello" depends on the files hello.o and run.o.
-Assignment1: bin/main.o bin/Tree.o bin/Session.o bin/Agent.o bin/Graph.o
-	@echo 'Building target: Assignment1'
+cTrace: bin/main.o bin/Tree.o bin/Session.o bin/Agent.o bin/Graph.o
+	@echo 'Building target: cTrace'
 	@echo 'Invoking: C++ Linker'
-	g++ -o bin/Assignment1 bin/main.o bin/Tree.o bin/Session.o bin/Agent.o bin/Graph.o
-	@echo 'Finished building target: Assignment1'
+	g++ -o bin/cTrace bin/main.o bin/Tree.o bin/Session.o bin/Agent.o bin/Graph.o
+	@echo 'Finished building target: cTrace'
 	@echo ' '
 
 # Depends on the source and header files

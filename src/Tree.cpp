@@ -11,8 +11,8 @@ Tree::Tree():node(),children(vector<Tree*>()){}
 Tree::Tree(int rootLabel):node(rootLabel),children(vector<Tree*>()){}
 
 Tree::Tree(const Tree &other):node(other.node),children(vector<Tree*>()){//
-    for(int i = 0; i < other.children.size();++i){
-        Tree* newTree = other.children[i]->clone();
+    for(auto i : other.children){
+        Tree* newTree = i->clone();
         children.push_back(newTree);
     }
 }
@@ -40,8 +40,8 @@ const Tree& Tree:: operator=(Tree &&other){
         node = other.node;
         clear();
         children = other.children;
-        for(int i = 0; i < other.children.size();++i){
-            other.children[i] = nullptr;
+        for(auto & i : other.children){
+            i = nullptr;
         }
     }
     return *this;
@@ -49,10 +49,10 @@ const Tree& Tree:: operator=(Tree &&other){
 
 //Destructor:
 Tree:: ~Tree(){
-    for(int i = 0; i < children.size();++i){
-        if (children[i]){
-            delete children[i];
-            children[i] = nullptr;
+    for(auto & i : children){
+        if (i){
+            delete i;
+            i = nullptr;
         }
     }
 }
@@ -69,10 +69,10 @@ void Tree:: addChild(Tree* child){
 }
 
 void Tree:: clear(){
-    for(int i = 0; i < children.size();++i){
-        if (children[i]){
-            delete children[i];
-            children[i] = nullptr;
+    for(auto & i : children){
+        if (i){
+            delete i;
+            i = nullptr;
         }
     }
 }
@@ -91,7 +91,7 @@ Tree* Tree::createTree(const Session& session, int rootLabel){
     }
 }
 
-void Tree::bfs(const Session& session, int rootLabel) {
+void Tree::bfs(const Session& session) {
     const vector<vector<int>> *pEdges = &(session.getGraph().getEdges());
     vector<Tree*> queue = vector<Tree*>();
     vector<int> isVisited = vector<int>(pEdges->size());
@@ -129,7 +129,7 @@ const vector<Tree*>& Tree::getChildren() const {
     return children;
 }
 
-int Tree::getNode() {
+const int Tree::getNode() const{//TODO change made
     return node;
 }
 
@@ -139,8 +139,8 @@ vector<int> Tree:: maxRank(int depth){
     result[1] = children.size();
     result[2] = depth;
     vector<int> newResult = vector<int>(3);
-    for (int i = 0;i < children.size();++i){
-        newResult = children[i]->maxRank(depth+1);
+    for (auto & i : children){
+        newResult = i->maxRank(depth+1);
         if (newResult[1] > result[1]){
             result = newResult;
         }

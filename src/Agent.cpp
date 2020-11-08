@@ -1,5 +1,6 @@
 #include "Agent.h"
 #include <vector>
+#include <iostream>
 
 
 
@@ -25,7 +26,7 @@ void ContactTracer:: act(Session& session){
     int rootLabel = session.dequeueInfected();
     if (rootLabel != -1){
         Tree* tree = Tree::createTree(session,rootLabel);
-        tree->bfs(session,rootLabel);
+        tree->bfs(session);
         int nodeToQuarantine = tree->traceTree();
         delete tree;
         g.quarantineNode(nodeToQuarantine);

@@ -26,9 +26,9 @@ public:
     void addChild(const Tree& child);
     void addChild(Tree* child);
     void clear();
-    void bfs(const Session& session, int rootLabel);
+    void bfs(const Session& session);
     const vector<Tree*>& getChildren() const;
-    int getNode();
+    const int getNode() const;
 
     //Static functions:
     static Tree* createTree(const Session& session, int rootLabel);

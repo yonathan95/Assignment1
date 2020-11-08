@@ -50,8 +50,8 @@ public:
 private:
     Graph g;
     TreeType treeType;
-    std::vector<Agent*> agents;
-    std:: vector<int> infectedQueue;
+    vector<Agent*> agents;
+    vector<int> infectedQueue;
     int currCycle;
 };
 
