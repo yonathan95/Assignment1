@@ -1,6 +1,5 @@
 #include "Session.h"
 #include <vector>
-#include <unordered_set>
 
 //Constructors:
 

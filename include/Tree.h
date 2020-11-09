@@ -4,8 +4,6 @@
 #include <vector>
 #include "Session.h"
 #include "Graph.h"
-#include "Agent.h"
-
 
 class Session;
 
