@@ -64,7 +64,7 @@ const Session& Session:: operator=(const Session &other){
         currCycle = other.currCycle;
         clear();
         agents = vector<Agent*>(other.agents.size());
-        for(int i = 0; i < other.agents.size();++i){
+        for(unsigned int i = 0; i < other.agents.size();++i){
             *agents[i] = *other.agents[i];
         }
     }

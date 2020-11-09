@@ -28,7 +28,7 @@ const Tree& Tree:: operator=(const Tree &other){
         node = other.node;
         clear();
         children = vector<Tree*>(other.children.size());
-        for(int i = 0; i < other.children.size();++i){
+        for(unsigned int i = 0; i < other.children.size();++i){
             *children[i] = *other.children[i];
         }
     }
@@ -96,7 +96,7 @@ void Tree::bfs(const Session& session) {
     vector<Tree*> queue = vector<Tree*>();
     vector<int> isVisited = vector<int>(pEdges->size());
     isVisited[node] = 2;
-    for(int i = 0; i < pEdges->size(); ++i ){
+    for(unsigned int i = 0; i < pEdges->size(); ++i ){
         if(i != node){
             if((*pEdges)[node][i] == 1) {
                 isVisited[i] = 1;
@@ -113,7 +113,7 @@ void Tree::bfs(const Session& session) {
         if(isVisited[(child)->node] != 2){
             isVisited[child->node] = 2;
             for(int i = 0; i < pEdges->size(); ++i ){
-                if(i != child->node & isVisited[i] == 0){
+                if((i != child->node) &  (isVisited[i] == 0)){
                     if((*pEdges)[child->node][i] == 1){
                         Tree* tree = createTree(session,i);
                         isVisited[i] = 1;

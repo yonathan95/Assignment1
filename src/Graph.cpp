@@ -32,7 +32,7 @@ void Graph::quarantineNode(int nodeToQuarantine) {
 //Getters and setters:
 vector<int> Graph::getInfectedNodes(){
     vector<int> output = vector<int>();
-    for(int i = 0; i < edges.size(); ++i){
+    for(unsigned int i = 0; i < edges.size(); ++i){
         if(edges[i][i] != 0){
             output.push_back(i);
             edges[i][i] = 0;
