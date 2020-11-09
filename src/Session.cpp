@@ -62,7 +62,7 @@ const Session& Session:: operator=(const Session &other){
         g = other.g;
         infectedQueue = other.infectedQueue;
         currCycle = other.currCycle;
-        clear();
+        clearAgents();
         agents = vector<Agent*>(other.agents.size());
         for(unsigned int i = 0; i < other.agents.size();++i){
             *agents[i] = *other.agents[i];
@@ -71,7 +71,6 @@ const Session& Session:: operator=(const Session &other){
     return *this;
 }
 
-
 //move assignment
 const Session& Session:: operator=(Session &&other){
     if (this != &other){
@@ -79,7 +78,7 @@ const Session& Session:: operator=(Session &&other){
         g = other.g;
         infectedQueue = other.infectedQueue;
         currCycle = other.currCycle;
-        clear();
+        clearAgents();
         agents = other.agents;
         for(auto & agent : other.agents){
             agent = nullptr;
@@ -88,31 +87,29 @@ const Session& Session:: operator=(Session &&other){
     return *this;
 }
 
-// Destructors
+// Destructor
 Session::~Session() {
-    for(auto & agent : agents) {
-        delete agent;
-    }
+    clearAgents();
 }
 
 void Session::simulate(){
-    int numberOfAgentAfterIter;
-    int numberOfAgents;
+    unsigned int numberOfAgentsAfterIter;
+    unsigned int numberOfAgents;
     bool finished = false;
     while(!finished){
         numberOfAgents = agents.size();
-        for(int i = 0; i < numberOfAgents; ++i){
+        for(unsigned int i = 0; i < numberOfAgents; ++i){
             agents[i]->act(*this);
         }
-        numberOfAgentAfterIter = agents.size();
-        finished = numberOfAgents == numberOfAgentAfterIter;
+        numberOfAgentsAfterIter = agents.size();
+        finished = (numberOfAgents == numberOfAgentsAfterIter);
         ++currCycle;
     }
     json j;
     vector<int> v = g.getInfectedNodes();
     j["infectedNodes"] = v;
     j["graph"] = g.getEdges();
-    ofstream i("./output.json");
+    ofstream i("output.json");
     j >> i;
 }
 
@@ -123,7 +120,7 @@ void Session:: addAgent(const Agent& agent){
 }
 
 //delete the agents vector from the heap.
-void Session:: clear(){
+void Session:: clearAgents(){
     for(auto & agent : agents){
         if (agent){
             delete agent;
@@ -135,6 +132,7 @@ void Session:: clear(){
 void Session:: enqueueInfected(int nodeInd){
     infectedQueue.push_back(nodeInd);
 }
+
 int Session::dequeueInfected() {
     if (infectedQueue.empty()){
         return -1;
@@ -143,6 +141,7 @@ int Session::dequeueInfected() {
     infectedQueue.erase(infectedQueue.begin());
     return output;
 }
+
 // change vertices to be infected and add it to the agent list.
 void Session::setInfected(int nodeInd) {
     g.infectNode(nodeInd);

@@ -2,8 +2,11 @@
 using namespace std;
 
 //Constructors:
+
+//Empty constructor
 Graph::Graph():edges(vector<vector<int>>()){}
 
+//Regular constructor
 Graph::Graph(vector<vector<int>> matrix):edges(matrix){}
 
 //Class functions:
@@ -14,9 +17,11 @@ void Graph::infectNode(int nodeInd){
 bool Graph::isInfected(int nodeInd){
     return edges[nodeInd][nodeInd] != 0;
 }
+
 bool Graph::isSick(int nodeInd) const{
-    return edges[nodeInd][nodeInd] == 2;
+    return (edges[nodeInd][nodeInd] == 2);
 }
+
 void Graph::becomeSick(int nodeInd) {
     edges[nodeInd][nodeInd] = 2;
 }
@@ -39,10 +44,6 @@ vector<int> Graph::getInfectedNodes(){
         }
     }
     return output;
-}
-
-void Graph::setEdge(int nodeInd, int nodeNeib, int status) {
-    edges[nodeInd][nodeNeib] = edges[nodeNeib][nodeInd] = status;
 }
 
 const vector<vector<int>>& Graph::getEdges() const{

@@ -30,12 +30,12 @@ public:
     const Session& operator=(const Session &other);
     const Session& operator=(Session &&other);
 
-    //Destructors:
+    //Destructor:
     virtual ~Session();
 
     //Class functions:
     void simulate();
-    void clear();
+    void clearAgents();
     void addAgent(const Agent& agent);
     void setGraph(const Graph& graph);
     void enqueueInfected(int);

@@ -25,10 +25,10 @@ public:
     //Class functions:
     void addChild(const Tree& child);
     void addChild(Tree* child);
-    void clear();
+    void clearChildren();
     void bfs(const Session& session);
     const vector<Tree*>& getChildren() const;
-    const int getNode() const;
+    int getNode() const;
 
     //Static functions:
     static Tree* createTree(const Session& session, int rootLabel);
