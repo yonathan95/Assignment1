@@ -112,7 +112,7 @@ void Session::simulate(){
     vector<int> v = g.getInfectedNodes();
     j["infectedNodes"] = v;
     j["graph"] = g.getEdges();
-    ofstream i("output.json");
+    ofstream i("./output.json");
     j >> i;
 }
 
