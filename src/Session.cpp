@@ -60,6 +60,7 @@ const Session& Session:: operator=(const Session &other){
     if(this != &other){
         treeType = other.treeType;
         g = other.g;
+        infectedQueue = other.infectedQueue;
         currCycle = other.currCycle;
         clear();
         agents = vector<Agent*>(other.agents.size());

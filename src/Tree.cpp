@@ -99,6 +99,7 @@ void Tree::bfs(const Session& session) {
     for(int i = 0; i < pEdges->size(); ++i ){
         if(i != node){
             if((*pEdges)[node][i] == 1) {
+                isVisited[i] = 1;
                 Tree *tree = createTree(session, i);
                 queue.push_back(tree);
                 addChild(tree);

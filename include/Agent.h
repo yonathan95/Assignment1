@@ -24,8 +24,8 @@ public:
     ContactTracer();
 
     //Virtual functions:
-    virtual void act(Session& session);
     virtual Agent* clone() const;
+    virtual void act(Session& session);
 };
 
 
@@ -36,9 +36,8 @@ public:
     Virus(const Virus& other);
 
     //Virtual functions:
-    virtual void act(Session& session);
     virtual Agent* clone() const;
-
+    virtual void act(Session& session);
 private:
     //Fields:
     const int nodeInd;
