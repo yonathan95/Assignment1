@@ -13,6 +13,9 @@ public:
     //Constructors:
     Agent();
 
+    //Destructor:
+    virtual ~Agent();
+
     //Virtual functions:
     virtual Agent* clone() const = 0;
     virtual void act(Session& session)=0;

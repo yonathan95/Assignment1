@@ -1,13 +1,13 @@
 #include "Agent.h"
 #include <vector>
-#include <iostream>
-
-
 
 //Class Agent:
 
 //Constructors:
 Agent:: Agent(){}
+
+//Destructors:
+Agent:: ~Agent()= default;
 
 //---------------------------------------------------------------------------------------------------//
 //Class ContactTracer:
