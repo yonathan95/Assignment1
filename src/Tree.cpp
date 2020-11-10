@@ -96,7 +96,7 @@ void Tree::bfs(const Session& session) {
     vector<Tree*> queue = vector<Tree*>();
     vector<int> isVisited = vector<int>(pEdges->size());
     isVisited[node] = 2;
-    for(unsigned int i = 0; i < pEdges->size(); ++i ){
+    for(signed int i = 0; i < pEdges->size(); ++i ){
         if((i != node) & ((*pEdges)[node][i] == 1) ){
             isVisited[i] = 1;
             Tree *tree = createTree(session, i);

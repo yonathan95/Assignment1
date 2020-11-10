@@ -1,5 +1,6 @@
 #include "Session.h"
 #include <vector>
+#include "Agent.h"
 
 //Constructors:
 
@@ -25,10 +26,12 @@ Session::Session(const std::string& path):g(vector<std::vector<int>>()),treeType
     else{
         treeType = Root;
     }
+    g = Graph(j["graph"]);
     for (auto& elem: j["agents"]){
             if(elem[0] == "V"){
                 Agent* virus = new Virus(elem[1]);
                 agents.push_back(virus);
+                g.infectNode(elem[1]);
             }
             else{
                 Agent* contactTracer= new ContactTracer();
@@ -36,7 +39,7 @@ Session::Session(const std::string& path):g(vector<std::vector<int>>()),treeType
             }
     }
     //construct graph:
-    g = Graph(j["graph"]);
+
 }
 
 //copy constructor
@@ -106,7 +109,7 @@ void Session::simulate(){
     }
     json j;
     vector<int> v = g.getInfectedNodes();
-    j["infectedNodes"] = v;
+    j["infected"] = v;
     j["graph"] = g.getEdges();
     ofstream i("output.json");
     j >> i;
@@ -156,14 +159,23 @@ const Graph& Session::getGraph() const {
     return g;
 }
 
-Graph& Session::getGraphForChange() {
-    return g;
-}
-
 void Session:: setGraph(const Graph& graph){
     g = graph;
 }
 
 int Session::getCurrCycle() const {
     return currCycle;
+}
+
+void Session::quarantineNode(int nodeToQuarantine) {
+    g.graphQuarantineNode(nodeToQuarantine);
+}
+
+void Session::becomeSick(int nodeInd){
+    g.graphBecomeSick(nodeInd);
+}
+
+bool Session::isNodeInfected(int nodeInd){
+    return g.isInfected(nodeInd);
+
 }

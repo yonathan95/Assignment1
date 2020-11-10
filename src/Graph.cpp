@@ -22,11 +22,11 @@ bool Graph::isSick(int nodeInd) const{
     return (edges[nodeInd][nodeInd] == 2);
 }
 
-void Graph::becomeSick(int nodeInd) {
+void Graph::graphBecomeSick(int nodeInd) {
     edges[nodeInd][nodeInd] = 2;
 }
 
-void Graph::quarantineNode(int nodeToQuarantine) {
+void Graph::graphQuarantineNode(int nodeToQuarantine) {
     for(int i = 0; i < edges.size(); ++i){
         if(i != nodeToQuarantine){
             edges[nodeToQuarantine][i] = edges[i][nodeToQuarantine] = 0;

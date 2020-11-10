@@ -42,9 +42,10 @@ public:
     int dequeueInfected();
     TreeType getTreeType() const;
     const Graph& getGraph() const;
-    Graph& getGraphForChange();
     int getCurrCycle() const;
-
+    void quarantineNode(int nodeToQuarantine );
+    void becomeSick(int nodeInd);
+    bool isNodeInfected(int nodeInd);
 
 private:
     Graph g;

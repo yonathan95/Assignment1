@@ -14,8 +14,8 @@ public:
     void infectNode(int nodeInd);
     bool isInfected(int nodeInd);
     bool isSick(int nodeInd) const;
-    void becomeSick(int nodeInd);
-    void quarantineNode(int nodeToQuarantine );
+    void graphBecomeSick(int nodeInd);
+    void graphQuarantineNode(int nodeToQuarantine );
 
     //Getters and setters:
     const vector<vector<int>>& getEdges() const;

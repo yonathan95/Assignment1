@@ -1,5 +1,6 @@
 #include "Agent.h"
 #include <vector>
+#include "Tree.h"
 
 //Class Agent:
 
@@ -22,14 +23,13 @@ Agent* ContactTracer:: clone() const{
 }
 
 void ContactTracer:: act(Session& session){
-    Graph& g = session.getGraphForChange();
     int rootLabel = session.dequeueInfected();
     if (rootLabel != -1){ //Infected queue is not empty.
         Tree* tree = Tree::createTree(session,rootLabel);
         tree->bfs(session);
         int nodeToQuarantine = tree->traceTree();
         delete tree;
-        g.quarantineNode(nodeToQuarantine);
+        session.quarantineNode(nodeToQuarantine);
     }
 }
 
@@ -47,14 +47,14 @@ Agent* Virus:: clone() const{
 }
 
 void Virus:: act(Session& session){
-    Graph& g = session.getGraphForChange();
+    const Graph& g = session.getGraph();
     if(!(g.isSick(nodeInd))){
-        g.becomeSick(nodeInd);
+        session.becomeSick(nodeInd);
         session.enqueueInfected(nodeInd);
     }
     bool found = false;
     for(int j = 0 ; (j < g.getEdges().size()) & !(found); ++j){
-        if((g.getEdges()[nodeInd][j] == 1) & !(g.isInfected(j))){     //Finds the first virus free neighbour.
+        if((g.getEdges()[nodeInd][j] == 1) & !(session.isNodeInfected(j))){     //Finds the first virus free neighbour.
             session.setInfected(j);
             found = true;
         }
