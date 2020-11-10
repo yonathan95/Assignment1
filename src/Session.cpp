@@ -14,7 +14,7 @@ Session::Session(const std::string& path):g(vector<std::vector<int>>()),treeType
     //input
     ifstream i (path);
     json j;
-    j << i;
+    i >> j;
 
     //construct treeType:
     if (j["tree"] == "M"){
@@ -38,8 +38,6 @@ Session::Session(const std::string& path):g(vector<std::vector<int>>()),treeType
                 agents.push_back(contactTracer);
             }
     }
-    //construct graph:
-
 }
 
 //copy constructor
@@ -112,7 +110,7 @@ void Session::simulate(){
     j["infected"] = v;
     j["graph"] = g.getEdges();
     ofstream i("output.json");
-    j >> i;
+    i << j;
 }
 
 // allocate new memory on the heap for a new agent and add t the the agent list.

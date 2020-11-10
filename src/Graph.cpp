@@ -27,9 +27,10 @@ void Graph::graphBecomeSick(int nodeInd) {
 }
 
 void Graph::graphQuarantineNode(int nodeToQuarantine) {
-    for(int i = 0; i < edges.size(); ++i){
-        if(i != nodeToQuarantine){
-            edges[nodeToQuarantine][i] = edges[i][nodeToQuarantine] = 0;
+    for(unsigned int i = 0; i < edges.size(); ++i){
+        int j = i;
+        if(j != nodeToQuarantine){
+            edges[nodeToQuarantine][j] = edges[j][nodeToQuarantine] = 0;
         }
     }
 }

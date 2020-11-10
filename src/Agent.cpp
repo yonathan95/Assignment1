@@ -53,7 +53,7 @@ void Virus:: act(Session& session){
         session.enqueueInfected(nodeInd);
     }
     bool found = false;
-    for(int j = 0 ; (j < g.getEdges().size()) & !(found); ++j){
+    for(unsigned int j = 0 ; (j < g.getEdges().size()) & !(found); ++j){
         if((g.getEdges()[nodeInd][j] == 1) & !(session.isNodeInfected(j))){     //Finds the first virus free neighbour.
             session.setInfected(j);
             found = true;
